@@ -4,7 +4,7 @@ module.exports = function check(str, bracketsConfig) {
   const closedBr = [')',']','}','2','4','6'];
   const openedBr = ['(','[','{','1','3','5'];
   const stack = [];
-  if (!openedBr.find((bracket)=>bracket===string[0])) {
+  if (!openedBr.find((bracket)=>bracket===string[0]) && !diff.find((bracket)=>bracket===string[0])) {
     return false;
   } else {
       for (var i = 0; i < string.length; i++) {
@@ -16,7 +16,7 @@ module.exports = function check(str, bracketsConfig) {
                  }
                 stack.push(string[i]);
                }
-     else if (closedBr.find((bracket)=>bracket===string[i])) {
+     else if (closedBr.find((bracket)=>bracket===string[i]) ) {
               let closedOneIndex = closedBr.indexOf(string[i]);
               let openedOne = openedBr[closedOneIndex];
               if (stack[stack.length-1]===openedOne) stack.pop();
@@ -24,7 +24,6 @@ module.exports = function check(str, bracketsConfig) {
           }
             else { break;}
         };
-          console.log(stack);
           if (stack.length===0) return true;
           else return false;
       }
