@@ -1,19 +1,21 @@
 module.exports = function check(str, bracketsConfig) {
   const string = str;
-  const roundBr = ['(', ')'];
-  const squareBr = ['[', ']'];
-  const curlyBr = ['{', '}'];
-  const straightBr = ['|', '|'];
-  const closedBr = [')',']','}'];
-  const openedBr = ['(','[','{'];
+  const diff = ['|','7','8'];
+  const closedBr = [')',']','}','2','4','6'];
+  const openedBr = ['(','[','{','1','3','5'];
   const stack = [];
-  let state = true;
-  if (!openedBr.find((bracket)=>bracket===string[0]) && string[0]!=='|') {
+  if (!openedBr.find((bracket)=>bracket===string[0])) {
     return false;
   } else {
       for (var i = 0; i < string.length; i++) {
-          if (openedBr.find(bracket=>bracket===string[i]) || string[i]==='|')
-              { stack.push(string[i]); }
+          if (openedBr.find(bracket=>bracket===string[i]) || diff.find(bracket=>bracket===string[i]))
+              {
+                if (diff.find(bracket=>bracket===string[i] && stack[stack.length-1]===string[i])) {
+                  stack.pop();
+                  continue;
+                 }
+                stack.push(string[i]);
+               }
      else if (closedBr.find((bracket)=>bracket===string[i])) {
               let closedOneIndex = closedBr.indexOf(string[i]);
               let openedOne = openedBr[closedOneIndex];
@@ -22,6 +24,7 @@ module.exports = function check(str, bracketsConfig) {
           }
             else { break;}
         };
+          console.log(stack);
           if (stack.length===0) return true;
           else return false;
       }
